@@ -30,11 +30,34 @@ class UserController {
   }
   async profile(req, res) {
     try {
-      let foundUser = await User.findOne({ _id: req.params.id });
-      if (foundUser) {
+      let foundedUser = await User.findOne({ _id: req.params.id });
+      if (foundedUser) {
         res.json({
           success: true,
-          user: foundUser,
+          user: foundedUser,
+        });
+      }
+    } catch (err) {
+      res.status(500).json({
+        success: false,
+        message: err.message,
+      });
+    }
+  }
+  async updateProfile(req, res) {
+    try {
+      let foundUser = await User.findOne({ _id: req.params.id });
+      if (foundUser) {
+        if(req.body.name)
+          foundUser.name = req.body.name;
+        if(req.body.email)
+          foundUser.email = req.body.email;
+        if(req.body.password)
+          foundUser.password = req.body.password;
+        await foundUser.save();
+        res.json({
+          success: true,
+          message: "Profile has been updated",
         });
       }
     } catch (err) {
