@@ -11,14 +11,15 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cors());
 
-const userRoutes = require('./routes/user.route');
-const categoryRoutes = require('./routes/category.route');
 const authorRoutes = require('./routes/author.route');
+const categoryRoutes = require('./routes/category.route');
+const productRoutes = require('./routes/product.route');
+const userRoutes = require('./routes/user.route');
 
-app.use('/api',userRoutes);
-app.use('/api',categoryRoutes);
 app.use('/api',authorRoutes);
-
+app.use('/api',categoryRoutes);
+app.use('/api',productRoutes);
+app.use('/api',userRoutes);
 
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);

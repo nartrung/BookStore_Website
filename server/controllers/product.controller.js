@@ -26,7 +26,7 @@ class ProductController {
   }
   async getAll(req, res) {
     try {
-      let products = await Product.find().populate("owner category").exec();
+      let products = await Product.find().populate("author category").exec();
       res.json({
         success: true,
         products: products,
@@ -41,7 +41,7 @@ class ProductController {
   async getOne(req, res) {
     try {
       let product = await Product.findOne({ _id: req.params.id })
-        .populate("owner category")
+        .populate("author category")
         .exec();
       res.json({
         success: true,
