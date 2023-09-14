@@ -24,7 +24,7 @@
             </nuxt-link>
           </div>
           <div class="nav-item pl-3 my-2 flex-fill">
-            <nuxt-link to="/owner" >
+            <nuxt-link to="/author" >
               <button class="a-button-buy-again " style="min-width: 140px; line-height: normal"> Quản lý tác giả</button>
             </nuxt-link>
           </div>

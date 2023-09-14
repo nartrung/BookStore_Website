@@ -12,8 +12,13 @@
                             <form>
                                 <div class="a-spacing-top-medium">
                                     <label for="type">Loại</label>
-                                    <input type="text" id="type" class="a-input-text w-100" v-model="type">
+                                    <input type="text" id="type" class="a-input-text w-100" v-model="type"
+                                        @keyup="checkDuplicated">
                                 </div>
+                                <div class="pl-2 mt-2 d-flex align-items-center"> <span
+                                        class="text-danger font-weight-bold mr-1">{{ msg }} </span> <i id="icon"
+                                        class='d-none text-danger bx bxs-x-circle' style="font-size: 24px;"></i></div>
+
                                 <hr>
                                 <div class="a-spacing-top-medium">
                                     <div class="w-auto">
@@ -36,7 +41,7 @@
                                     <tbody>
                                         <tr v-for="(category, index) in categories" :key="category._id">
                                             <th scope="row" class="w-25">{{ index + 1 }}</th>
-                                            <td>{{ category.type }}</td>
+                                            <td class="catgoriesName">{{ category.type }}</td>
                                             <td class="w-25 text-center">
                                                 <a class="a-button-history mx-auto"
                                                     @click="onDeleteCategory(category._id, index)">Xóa</a>
@@ -68,18 +73,44 @@ export default {
     },
     data() {
         return {
-            type: ""
+            type: "",
+            msg: "",
+            duplicated: false,
         }
     },
     methods: {
+        async checkDuplicated() {
+            this.duplicated = false;
+            let inputFormValue = document.getElementById("type");
+            let icon = document.getElementById("icon");
+            let arrCate = document.getElementsByClassName("catgoriesName");
+            for (let i = 0; i < arrCate.length; i++) {
+                if (inputFormValue.value == arrCate[i].innerText)
+                    this.duplicated = true;
+            }
+            if (this.duplicated) {
+                inputFormValue.classList.add("border-danger");
+                icon.classList.remove("d-none");
+                this.msg = "Tên danh mục đã tồn tại";
+            } else {
+                inputFormValue.classList.remove("border-danger");
+                icon.classList.add("d-none");
+                this.msg = "";
+            }
+            console.log(this.duplicated);
+        },
         async onAddCategory() {
-            try {
-                let data = { type: this.type }
-                let respone = await this.$axios.$post('http://localhost:3000/api/categories', data);
-                this.categories.push(data);
-                this.$router.go();
-            } catch (err) {
-                console.log(err);
+            if (this.duplicated) {
+                alert("Danh mục đã có, không thể thêm!");
+            }else{
+                try {
+                    let data = { type: this.type }
+                    let respone = await this.$axios.$post('http://localhost:3000/api/categories', data);
+                    this.categories.push(data);
+                    this.$router.go();
+                } catch (err) {
+                    console.log(err);
+                }
             }
         },
         async onDeleteCategory(id, index) {
