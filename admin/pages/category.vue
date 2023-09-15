@@ -12,11 +12,11 @@
                             <form>
                                 <div class="a-spacing-top-medium">
                                     <label for="type">Loại</label>
-                                    <input type="text" id="type" class="a-input-text w-100" v-model="type"
+                                    <input type="text" ref="type" class="a-input-text w-100" v-model="type"
                                         @keyup="checkDuplicated">
                                 </div>
-                                <div class="pl-2 mt-2 d-flex align-items-center"> <span
-                                        class="text-danger font-weight-bold mr-1">{{ msg }} </span> <i id="icon"
+                                <div class="mt-2 d-flex align-items-center"> <span
+                                        class="text-danger font-weight-bold">{{ msg }} </span> <i ref="icon"
                                         class='d-none text-danger bx bxs-x-circle' style="font-size: 24px;"></i></div>
 
                                 <hr>
@@ -41,7 +41,7 @@
                                     <tbody>
                                         <tr v-for="(category, index) in categories" :key="category._id">
                                             <th scope="row" class="w-25">{{ index + 1 }}</th>
-                                            <td class="catgoriesName">{{ category.type }}</td>
+                                            <td class="catgoriesName" ref="catgoriesName">{{ category.type }}</td>
                                             <td class="w-25 text-center">
                                                 <a class="a-button-history mx-auto"
                                                     @click="onDeleteCategory(category._id, index)">Xóa</a>
@@ -81,17 +81,17 @@ export default {
     methods: {
         async checkDuplicated() {
             this.duplicated = false;
-            let inputFormValue = document.getElementById("type");
-            let icon = document.getElementById("icon");
-            let arrCate = document.getElementsByClassName("catgoriesName");
+            let inputFormValue = this.$refs.type;
+            let icon = this.$refs.icon;
+            let arrCate = this.$refs.catgoriesName;
             for (let i = 0; i < arrCate.length; i++) {
-                if (inputFormValue.value == arrCate[i].innerText)
+                if (inputFormValue.value.toLowerCase() == arrCate[i].innerText.toLowerCase())
                     this.duplicated = true;
             }
             if (this.duplicated) {
                 inputFormValue.classList.add("border-danger");
                 icon.classList.remove("d-none");
-                this.msg = "Tên danh mục đã tồn tại";
+                this.msg = "*Tên danh mục đã tồn tại";
             } else {
                 inputFormValue.classList.remove("border-danger");
                 icon.classList.add("d-none");

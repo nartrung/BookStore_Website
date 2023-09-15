@@ -9,33 +9,40 @@
               <div class="row">
                 <div class="col-12">
                   <div class="a-section">
-                    <form>
+                    <form id="addBookForm">
                       <div class="a-spacing-top-medium">
                         <label for="category">Thể loại</label>
                         <select id="category" class="a-select-option text-left" v-model="categoryID">
-                          <option v-for="category in categories" :value="category._id" :key="category._id" @click.prevent>
-                            {{
-                              category.type }}</option>
+                          <option v-for="category in categories" :value="category._id" :key="category._id">
+                            {{ category.type }}
+                          </option>
                         </select>
+                        <p class="text-danger" v-if="categoryErr">Tên danh mục không thể để trống!</p>
+
                       </div>
                       <div class="a-spacing-top-medium">
                         <label for="author">Tác giả</label>
                         <select id="author" class="a-select-option text-left" v-model="authorID">
-                          <option v-for="author in authors" :value="author._id" :key="author._id">{{ author.name }}
+                          <option v-for="author in authors" :value="author._id" :key="author._id">
+                            {{ author.name }}
                           </option>
                         </select>
+                        <p class="text-danger" v-if="authorErr">*Tên tác giả không thể để trống!</p>
                       </div>
                       <div class="a-spacing-top-medium">
                         <label for="title">Tựa</label>
                         <input type="text" id="title" class="a-input-text w-100" v-model="title">
+                        <p class="text-danger" v-if="titleErr">*Tên sách không thể để trống!</p>
                       </div>
                       <div class="a-spacing-top-medium">
                         <label for="price">Giá</label>
-                        <input type="number" step="0.1" id="price" class="a-input-text w-100" v-model="price">
+                        <input type="number" min="0.1" step="0.1" id="price" class="a-input-text w-100" v-model="price">
+                        <p class="text-danger" v-if="priceErr">*Giá không hợp lệ!</p>
                       </div>
                       <div class="a-spacing-top-medium">
                         <label for="stockQuantity">Số lượng thêm</label>
-                        <input type="number" id="price" class="a-input-text w-100" v-model="stockQuantity">
+                        <input type="number" min="0" id="price" class="a-input-text w-100" v-model="stockQuantity">
+                        <p class="text-danger" v-if="stockQuantityErr">*Số lượng thêm không hợp lệ!</p>
                       </div>
                       <div class="a-spacing-top-medium">
                         <label for="desc">Chi tiết</label>
@@ -45,17 +52,16 @@
                       </div>
                       <div class="a-spacing-top-medium">
                         <label>Thêm hình ảnh</label>
+                        <p class="text-danger" v-if="imageErr">*Vui lòng thêm hình ảnh sách</p>
                         <div class="a-row a-spacing-top-medium d-flex">
                           <label for="photo" class="choosefile-button mr-2">
                             <i class="fal fa-plus"></i>
-                            <input type="file" id="photo" @change="onFileSelected">
-
+                            <input type="file" id="photo" @change="onFileSelected" required>
                           </label>
                           <div>
                             <img :src="image" style="max-width: 110px; max-height: 110px;">
                             <p class="text-center font-weight-bold">{{ fileName }}</p>
                           </div>
-
                         </div>
                       </div>
                       <div class="a-spacing-top-medium"></div>
@@ -67,9 +73,10 @@
           </main>
           <template #modal-footer>
             <div class="w-25">
-              <b-button size="sm" class="float-right a-button-buy-again text-dark font-weight-bold" @click="onAddProduct">
+              <button type="submit" form="addBookForm" size="sm"
+                class="float-right a-button-buy-again text-dark font-weight-bold" @click="onAddProduct">
                 Thêm sách
-              </b-button>
+              </button>
             </div>
           </template>
         </b-modal>
@@ -118,7 +125,7 @@
                   <nuxt-link :to="`/products/${product._id}`" class="a-button-history margin-right-10">Cập nhật thông
                     tin</nuxt-link>
                   <a href="#" class="a-button-history margin-right-10"
-                    @click="onDeleteProduct(product._id, index)">Xóa</a>
+                    @submit="onDeleteProduct(product._id, index)">Xóa</a>
                 </div>
               </div>
             </div>
@@ -161,6 +168,12 @@ export default {
       selectedFile: null,
       fileName: "",
       image: "",
+      categoryErr: false,
+      authorErr: false,
+      titleErr: false,
+      priceErr: false,
+      stockQuantityErr: false,
+      imageErr: false,
     }
   },
   methods: {
@@ -183,17 +196,24 @@ export default {
       this.image = URL.createObjectURL(event.target.files[0])
     },
     async onAddProduct() {
-      let data = new FormData();
-      data.append("title", this.title);
-      data.append("price", this.price);
-      data.append("stockQuantity", this.stockQuantity);
-      data.append("description", this.description);
-      data.append("authorID", this.authorID);
-      data.append("categoryID", this.categoryID);
-      data.append("photo", this.selectedFile, this.selectedFile.name);
-
-      let result = await this.$axios.$post('http://localhost:3000/api/products', data);
-      this.$router.go();
+      this.categoryErr = (this.categoryID == null); //true
+      this.authorErr = (this.authorID == null); //true
+      this.titleErr = (this.title.length==0);
+      this.priceErr = (this.price<0.1);
+      this.stockQuantityErr = (this.stockQuantity<1);
+      this.imageErr = (this.selectedFile == null);
+      if (!this.categoryErr && !this.authorErr && !this.titleErr && !this.priceErr && !this.stockQuantityErr && !this.imageErr) {
+        let data = new FormData();
+        data.append("title", this.title);
+        data.append("price", this.price);
+        data.append("stockQuantity", this.stockQuantity);
+        data.append("description", this.description);
+        data.append("authorID", this.authorID);
+        data.append("categoryID", this.categoryID);
+        data.append("photo", this.selectedFile, this.selectedFile.name);
+        let result = await this.$axios.$post('http://localhost:3000/api/products', data);
+        this.$router.go();
+      }
     }
 
   }
