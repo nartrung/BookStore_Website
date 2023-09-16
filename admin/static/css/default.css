@@ -51,6 +51,9 @@ hr {
     margin-top: 0;
     margin-bottom: 14px;
 }
+#desc{
+    height: 10em !important;
+}
 .fas,.far{
     color: #ffb300 !important;
     font-size: 14px !important;
@@ -474,6 +477,9 @@ button, input, textarea {
 .a-spacing-top-medium{
     margin-top: 18px!important;
 }
+.a-spacing-top-large{
+    margin-top: 24px!important;
+}
 .a-text-normal {
     font-weight: 400!important;
     font-style: normal!important;
@@ -787,4 +793,10 @@ ul{
 }
 .a-button-buy-again:hover{
     color: #bf6c00;
+}
+.p13n-sc-truncated{
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
