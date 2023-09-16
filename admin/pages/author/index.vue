@@ -13,13 +13,18 @@
                                             <div class="a-spacing-top-medium">
                                                 <label for="type">Tên</label>
                                                 <input type="text" id="type" class="a-input-text w-100" v-model="name">
+                                                <p class="a-alert-content text-danger" v-if="nameErr">*Tên tác giả không thể
+                                                    để trống!</p>
                                             </div>
                                             <div class="a-spacing-top-medium">
                                                 <label for="type">Tiểu sử</label>
                                                 <input type="text" id="type" class="a-input-text w-100" v-model="about">
+                                                <p class="a-alert-content text-danger" v-if="aboutErr">*Tiểu sử không thể để
+                                                    trống!</p>
                                             </div>
                                             <div class="a-spacing-top-medium">
                                                 <label>Hình ảnh</label>
+                                                <p class="a-alert-content text-danger" v-if="imageErr">*Vui lòng thêm hình ảnh sách</p>
                                                 <div class="a-row a-spacing-top-medium d-flex">
                                                     <label for="photo" class="choosefile-button mr-2">
                                                         <i class="fal fa-plus"></i>
@@ -109,6 +114,9 @@ export default {
             selectedFile: null,
             fileName: "",
             image: "",
+            nameErr: false,
+            aboutErr: false,
+            imageErr: false,
 
         }
     },
@@ -119,16 +127,21 @@ export default {
             this.image = URL.createObjectURL(event.target.files[0]);
         },
         async onAddAuthor() {
-            try {
-                let data = new FormData();
-                data.append("name", this.name);
-                data.append("about", this.about);
-                data.append("photo", this.selectedFile, this.selectedFile.name);
-                let respone = await this.$axios.$post('http://localhost:3000/api/authors', data);
-                this.authors.push(this.name);
-                this.$router.go();
-            } catch (err) {
-                console.log(err);
+            this.nameErr = (this.name.length == 0);
+            this.aboutErr = (this.about.length == 0);
+            this.imageErr = (this.selectedFile == null);
+            if (!this.nameErr && !this.aboutErr && !this.imageErr) {
+                try {
+                    let data = new FormData();
+                    data.append("name", this.name);
+                    data.append("about", this.about);
+                    data.append("photo", this.selectedFile, this.selectedFile.name);
+                    let respone = await this.$axios.$post('http://localhost:3000/api/authors', data);
+                    this.authors.push(this.name);
+                    this.$router.go();
+                } catch (err) {
+                    console.log(err);
+                }
             }
         },
         async onDeleteAuthor(name, id, index) {

@@ -10,6 +10,9 @@
                         <div class="a-section">
                             <div class="a-spacing-top-medium"></div>
                             <h3 class="text-center">Cập nhật thông tin sách</h3>
+                            <div class="d-flex justify-content-center">
+                                <img :src="product.photo" alt="" width="180px" class="rounded">
+                            </div>
                             <form>
                                 <div class="a-spacing-top-medium">
                                     <label for="category">Thể loại</label>
