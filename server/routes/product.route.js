@@ -9,7 +9,7 @@ router.get('/products', ProductController.getAll);
 // GET - Get a single products
 router.get('/products/:id', ProductController.getOne);
 // PUT - Update a single products
-router.put('/products/:id',uploadCloud.single('photo'),ProductController.update);
+router.put('/products/:id',ProductController.update);
 //DELETE - Delete a single product
 router.delete('/products/:id', ProductController.delete);
 

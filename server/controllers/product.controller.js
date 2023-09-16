@@ -56,25 +56,26 @@ class ProductController {
   }
   async update(req, res) {
     try {
-        let product = await Product.findOneAndUpdate(
-            { _id: req.params.id },
-            {
-              $set: {
-                title: req.body.title,
-                price: req.body.price,
-                category: req.body.categoryID,
-                photo: req.file.path,
-                stockQuantity: req.body.stockQuantity,
-                description: req.body.description,
-                author: req.body.authorID
-              }
-            },
-            { upsert: true }
-          );
-      res.json({
-        success: true,
-        updatedProduct: product,
-      });
+      let product = await Product.findOne({ _id: req.params.id });
+        if (product) {
+          if(req.body.categoryID != null)
+            product.category = req.body.categoryID;
+          if(req.body.authorID != null)
+            product.author = req.body.authorID;
+          if(req.body.title)
+            product.title = req.body.title;
+          if(req.body.price)
+            product.price = req.body.price;
+          if(req.body.stockQuantity)
+            product.stockQuantity = req.body.stockQuantity;
+          if(req.body.description)
+            product.description = req.body.description;
+          await product.save();
+          res.json({
+            success: true,
+            message: "Profile has been updated",
+          });
+        }
     } catch (err) {
       res.status(500).json({
         success: false,

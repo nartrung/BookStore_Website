@@ -99,7 +99,7 @@
             <div v-for="(product, index) in products" :key="product._id" class="col-xl-2 col-lg-3 col-sm-4 col-6 br bb">
               <div class="history-box">
                 <a href="#" class="a-link-normal">
-                  <img :src="product.photo" class="img-fluid" alt="" style="height: 420px; width: 270px;">
+                  <img :src="product.photo" class="img-fluid" alt="">
                 </a>
                 <div class="a-spacing-top-base asin-title">
                   <span class="a-text-normal">
@@ -118,7 +118,7 @@
                 </div>
                 <div class="a-row">
                   <span class="a-size-base a-color-price">
-                    <span class="p13n-sc-price">${{ product.price }}</span>
+                    <div class="p13n-sc-price">${{ product.price }}</div>
                   </span>
                 </div>
                 <div class="a-row">
