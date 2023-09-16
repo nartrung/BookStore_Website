@@ -17,7 +17,7 @@
                             {{ category.type }}
                           </option>
                         </select>
-                        <p class="text-danger" v-if="categoryErr">Tên danh mục không thể để trống!</p>
+                        <p class="a-alert-content text-danger" v-if="categoryErr">Tên danh mục không thể để trống!</p>
 
                       </div>
                       <div class="a-spacing-top-medium">
@@ -27,22 +27,22 @@
                             {{ author.name }}
                           </option>
                         </select>
-                        <p class="text-danger" v-if="authorErr">*Tên tác giả không thể để trống!</p>
+                        <p class="a-alert-content text-danger" v-if="authorErr">*Tên tác giả không thể để trống!</p>
                       </div>
                       <div class="a-spacing-top-medium">
                         <label for="title">Tựa</label>
                         <input type="text" id="title" class="a-input-text w-100" v-model="title">
-                        <p class="text-danger" v-if="titleErr">*Tên sách không thể để trống!</p>
+                        <p class="a-alert-content text-danger" v-if="titleErr">*Tên sách không thể để trống!</p>
                       </div>
                       <div class="a-spacing-top-medium">
                         <label for="price">Giá</label>
                         <input type="number" min="0.1" step="0.1" id="price" class="a-input-text w-100" v-model="price">
-                        <p class="text-danger" v-if="priceErr">*Giá không hợp lệ!</p>
+                        <p class="a-alert-content text-danger" v-if="priceErr">*Giá không hợp lệ!</p>
                       </div>
                       <div class="a-spacing-top-medium">
                         <label for="stockQuantity">Số lượng thêm</label>
                         <input type="number" min="0" id="price" class="a-input-text w-100" v-model="stockQuantity">
-                        <p class="text-danger" v-if="stockQuantityErr">*Số lượng thêm không hợp lệ!</p>
+                        <p class="a-alert-content text-danger" v-if="stockQuantityErr">*Số lượng thêm không hợp lệ!</p>
                       </div>
                       <div class="a-spacing-top-medium">
                         <label for="desc">Chi tiết</label>
@@ -52,7 +52,7 @@
                       </div>
                       <div class="a-spacing-top-medium">
                         <label>Thêm hình ảnh</label>
-                        <p class="text-danger" v-if="imageErr">*Vui lòng thêm hình ảnh sách</p>
+                        <p class="a-alert-content text-danger" v-if="imageErr">*Vui lòng thêm hình ảnh sách</p>
                         <div class="a-row a-spacing-top-medium d-flex">
                           <label for="photo" class="choosefile-button mr-2">
                             <i class="fal fa-plus"></i>
@@ -125,7 +125,7 @@
                   <nuxt-link :to="`/products/${product._id}`" class="a-button-history margin-right-10">Cập nhật thông
                     tin</nuxt-link>
                   <a href="#" class="a-button-history margin-right-10"
-                    @submit="onDeleteProduct(product._id, index)">Xóa</a>
+                    @click="onDeleteProduct(product._id, index, product.title)">Xóa</a>
                 </div>
               </div>
             </div>
@@ -177,8 +177,8 @@ export default {
     }
   },
   methods: {
-    async onDeleteProduct(id, index) {
-      if (confirm("Are you sure?")) {
+    async onDeleteProduct(id, index, name) {
+      if (confirm("Bạn có chắc muốn xóa sách \"" + name + "\" ?")) {
         try {
           let respone = await this.$axios.$delete(`/products/${id}`);
           if (respone.status) {

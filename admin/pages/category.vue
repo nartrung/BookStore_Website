@@ -16,8 +16,8 @@
                                         @keyup="checkDuplicated">
                                 </div>
                                 <div class="mt-2 d-flex align-items-center"> <span
-                                        class="text-danger font-weight-bold">{{ msg }} </span> <i ref="icon"
-                                        class='d-none text-danger bx bxs-x-circle' style="font-size: 24px;"></i></div>
+                                        class="a-alert-content text-danger font-weight-bold">{{ msg }} </span>  <i ref="icon"
+                                        class='d-none text-danger bx bxs-x-circle' style="margin-top: 3px;"></i></div>
 
                                 <hr>
                                 <div class="a-spacing-top-medium">
@@ -102,6 +102,8 @@ export default {
         async onAddCategory() {
             if (this.duplicated) {
                 alert("Danh mục đã có, không thể thêm!");
+            }else if(this.type.length == 0){
+                this.msg = "Tên danh mục không thể để trống";
             }else{
                 try {
                     let data = { type: this.type }
