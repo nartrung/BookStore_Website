@@ -97,7 +97,6 @@ export default {
                 icon.classList.add("d-none");
                 this.msg = "";
             }
-            console.log(this.duplicated);
         },
         async onAddCategory() {
             if (this.duplicated) {

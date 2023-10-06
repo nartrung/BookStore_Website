@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -16,8 +17,12 @@ class UserController {
         newUser.email = req.body.email;
         newUser.password = req.body.password;
         await newUser.save();
+        let token = jwt.sign(newUser.toJSON(), process.env.SecretJWT, {
+          expiresIn: 604800,
+        });
         res.json({
           success: true,
+          token: token,
           message: "Successfully created a new user",
         });
       } catch (err) {
@@ -30,12 +35,41 @@ class UserController {
   }
   async profile(req, res) {
     try {
-      let foundedUser = await User.findOne({ _id: req.params.id });
-      if (foundedUser) {
+      let foundUser = await User.findOne({ _id: req.decoded._id });
+      if (foundUser) {
         res.json({
           success: true,
-          user: foundedUser,
+          user: foundUser,
         });
+      }
+    } catch (err) {
+      res.status(500).json({
+        success: false,
+        message: err.message,
+      });
+    }
+  }
+  async login(req, res) {
+    try {
+      let foundUser = await User.findOne({ email: req.body.email });
+      if (!foundUser) {
+        res.status(403).json({
+          success: false,
+          message: "User not found",
+        });
+      } else {
+        if (foundUser.comparePassword(req.body.password)) {
+          let token = jwt.sign(foundUser.toJSON(), process.env.SecretJWT, {
+            expiresIn: 604800,
+          });
+
+          res.json({ success: true, token: token });
+        } else {
+          res.status(403).json({
+            success: false,
+            message: "Wrong password!",
+          });
+        }
       }
     } catch (err) {
       res.status(500).json({
@@ -46,7 +80,7 @@ class UserController {
   }
   async updateProfile(req, res) {
     try {
-      let foundUser = await User.findOne({ _id: req.params.id });
+      let foundUser = await User.findOne({ _id: req.decoded._id });
       if (foundUser) {
         if(req.body.name)
           foundUser.name = req.body.name;

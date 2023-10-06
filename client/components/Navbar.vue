@@ -47,7 +47,19 @@
                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-7 ml-auto col-10 p-0 offset-">
                         <div class="nav-tools">
                             <span class="icp-nav-link-border"></span>
-                            <template>
+                            <template v-if="$auth.$state.loggedIn">
+                                <nuxt-link to="/profile" class="nav-a nav-a-2" id="nav-link-accountList" tabindex="0">
+                                    <span class="nav-line-1">Xin chào,</span>
+                                    <span class="nav-line-2">
+                                        {{ $auth.$state.user.name }}
+                                    </span>
+                                </nuxt-link>
+                                <span class="nav-a nav-a-2 nav-single-row-link">
+                                    <span class="nav-line-1"></span>
+                                    <span class="nav-line-2" style="text-decoration: underline; cursor: pointer;" @click="onLogout" >Đăng xuất</span>
+                                </span>
+                            </template>
+                            <template v-else>
                                 <nuxt-link to="/login" class="nav-a nav-a-2" id="nav-link-accountList" tabindex="0">
                                 <span class="nav-line-1">Xin chào, Khách</span>
                                 <span class="nav-line-2">
@@ -78,5 +90,8 @@ export default {
             await this.$auth.logout();
         }
     },
+    computed:{
+        ...mapGetters(["getCartLength"])
+    }
 }
 </script>
