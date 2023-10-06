@@ -41,7 +41,7 @@
                       </div>
                       <div class="a-spacing-top-medium">
                         <label for="stockQuantity">Số lượng thêm</label>
-                        <input type="number" min="0" id="price" class="a-input-text w-100" v-model="stockQuantity">
+                        <input type="number" min="0" class="a-input-text w-100" v-model="stockQuantity">
                         <p class="a-alert-content text-danger" v-if="stockQuantityErr">*Số lượng thêm không hợp lệ!</p>
                       </div>
                       <div class="a-spacing-top-medium">
@@ -72,11 +72,12 @@
             </div>
           </main>
           <template #modal-footer>
-            <div class="w-25">
-              <button type="submit" form="addBookForm" size="sm"
-                class="float-right a-button-buy-again text-dark font-weight-bold" @click="onAddProduct">
-                Thêm sách
-              </button>
+            <div>
+              <span class="a-button-register">
+                  <span class="a-button-inner">
+                    <span class="a-button-text" @click="onAddProduct">Thêm sách</span>
+                  </span>
+                </span>
             </div>
           </template>
         </b-modal>
@@ -180,7 +181,7 @@ export default {
     async onDeleteProduct(id, index, name) {
       if (confirm("Bạn có chắc muốn xóa sách \"" + name + "\" ?")) {
         try {
-          let respone = await this.$axios.$delete(`/products/${id}`);
+          let respone = await this.$axios.$delete(`http://localhost:3000/api/products/${id}`);
           if (respone.status) {
             this.products.splice(index, 1)
           }
@@ -202,7 +203,7 @@ export default {
       this.priceErr = (this.price<0.1);
       this.stockQuantityErr = (this.stockQuantity<1);
       this.imageErr = (this.selectedFile == null);
-      if (!this.categoryErr && !this.authorErr && !this.titleErr && !this.priceErr && !this.stockQuantityErr && !this.imageErr) {
+      if (!this.categoryErr && !this.authorErr && !this.titleErr && !this.priceErr && !this.stockQuantityErr && !this.imageErr){
         let data = new FormData();
         data.append("title", this.title);
         data.append("price", this.price);
@@ -214,6 +215,7 @@ export default {
         let result = await this.$axios.$post('http://localhost:3000/api/products', data);
         this.$router.go();
       }
+        
     }
 
   }
