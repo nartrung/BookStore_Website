@@ -14,11 +14,13 @@ app.use(cors());
 const authorRoutes = require('./routes/author.route');
 const categoryRoutes = require('./routes/category.route');
 const productRoutes = require('./routes/product.route');
+const reviewRoutes = require('./routes/review.route');
 const userRoutes = require('./routes/user.route');
 
 app.use('/api',authorRoutes);
 app.use('/api',categoryRoutes);
 app.use('/api',productRoutes);
+app.use('/api',reviewRoutes);
 app.use('/api',userRoutes);
 
 app.listen(port, () => {
