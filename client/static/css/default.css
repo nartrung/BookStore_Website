@@ -6,7 +6,9 @@
        url('../font/amazon-ember-regular-webfont.ttf')  format('truetype'), /* Safari, Android, iOS */
        url('../font/amazon-ember-bold-webfont.svg') format('svg'); /* Legacy iOS */
 }
-
+html {
+    scroll-behavior: smooth;
+}
 body {
     font-size: 13px;
     line-height: 19px;
@@ -263,9 +265,9 @@ input[type=email]::placeholder{
     padding: 2px 7px 2px 7px;
   }
 }
-@media(max-width: 720px){
+@media(max-width: 768px){
     #feartureImg{
-        min-width: 400px !important;
+        max-width: 350px !important;
     }
 }
 .registerPage a{
@@ -914,22 +916,6 @@ a:hover.a-color-tertiary {
     padding-left: 18px;
     padding-right: 18px;
     margin: 10px 0px;
-}
-.eBooksimg{
-    width: 235px;
-    height: 351px;
-}
-@media(max-width: 1150px){
-  .eBooksimg{
-    width: 177px;
-    height: 266px;
-  }
-}
-@media(max-width: 860px){
-  .eBooksimg{
-    width: 157px;
-    height: 246px;
-  }
 }
 .authorFollowHeading{
     font-weight: 700!important;
@@ -1723,7 +1709,6 @@ button, input, textarea {
     background-color: #223d36;
     min-width: 1000px;
     position: relative;
-    margin-top: 30px;
     padding: 0 0 7px 0;
 }
 .navFooterBackToTop {
@@ -1940,6 +1925,7 @@ td .nav_a:hover{
 }
 .listingPage{
     font-family: "MyWebFont",Arial,sans-serif;
+    background-color: #f2f2f2;
 }
 .a-text-normal {
     font-weight: 400!important;
@@ -2029,7 +2015,7 @@ p a:link {
     text-decoration: underline;
 }
 .bx-root {
-    background-color: #f2f2f2;
+    background-color: #fff;
     margin-top: 16px;
     margin-bottom: 16px;
     padding-top: 20px;
@@ -2037,7 +2023,7 @@ p a:link {
     color: #333333;
 }
 .bx-root img{
-    width: 200px;
+    max-width: 460px;
 }
 .bx-root-dtls{
     margin: 0 auto;
@@ -2085,6 +2071,7 @@ ul.s-result-list {
     word-spacing: -4px;
     letter-spacing: -4px;
     color: #949494;
+    background-color: #fff;
 }
 ul.s-result-list li.s-result-item {
     display: inline-block;
@@ -2137,35 +2124,24 @@ ul.s-result-list li.s-result-item .s-item-container {
 }
 .bestSeller{
     position: relative;
-    width: 80px;
-    padding: 5px 7px 3px 10px;
+    width: max-content;
+    padding: 5px 7px 5px 7px;
     position: relative;
     color: #FFF;
     background: #e67a00;
+    transform-origin: bottom left;
+    transform: skew(-15deg, 0deg);
+
 }
 .bestSeller a {
     text-decoration: none;
   color: white;
   font-size: 13px;
+  text-align: center;
 }
 .bestSeller a:hover{
     text-decoration: none;
     color: #fff;
-}
-.bestSeller:after {
-    content: " ";
-    position: absolute;
-    display: block;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    background: #e67a00;
-    transform-origin: bottom left;
-    -ms-transform: skew(-15deg, 0deg);
-    -webkit-transform: skew(-15deg, 0deg);
-    transform: skew(-15deg, 0deg);
 }
 .a-box {
     display: block;
@@ -2566,4 +2542,32 @@ i.a-icon {
     text-align: center;
     white-space: nowrap;
     font-weight: 700;
+}
+.truncated{
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.dropdown-menu{
+    top: 93% !important;
+    background-color: #223d36 !important;
+    border: 0px !important;
+}
+.dropdown-menu .dropdown-item{
+    color: #ccc;
+    text-decoration: none;
+    font-family: "MyWebFont",Arial,sans-serif;
+    font-size: 13px;
+}
+.dropdown:hover{
+    cursor: pointer;;
+}
+.dropdown:hover>.dropdown-menu {
+    display: block !important;
+}
+.dropdown-item:hover{
+    background-color: #223d36 !important;
+    color: #ffbf58 !important;
+    text-decoration: underline !important;
 }
