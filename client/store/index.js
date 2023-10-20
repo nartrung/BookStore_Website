@@ -64,6 +64,6 @@ export const getters = {
     state.cart.map((product) => {
       total += product.price * product.quantity;
     });
-    return total;
+    return total.toLocaleString();
   },
 };
