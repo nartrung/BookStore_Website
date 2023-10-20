@@ -2,7 +2,7 @@
     <div class="mainContent">
         <div class="unified_widget pageBanner">
             <div class="a-spacing-large"></div>
-            <h1>TÌM SÁCH HAY, ĐẾN BOOKWORM</h1>
+            <h1>TÌM SÁCH HAY, ĐẾN BOOKSTORE</h1>
             <p>
                 <b>
                     Tìm kiếm sách về
@@ -15,12 +15,12 @@
         <div class="bx-root">
             <div class="row">
                 <div class="col-lg-7 text-center">
-                    <img src="/img/fearture.png" id="feartureImg" style="min-width: 500px;">
+                    <img src="/img/fearture.png" id="feartureImg">
                 </div>
                 <div class="col-lg-5 m-auto text-center">
                     <div class="bx-root-dtls">
                         <div class="a-spacing-large"></div>
-                        <h1 class="bx-root-heading ">Hè đến rồi, Sale khủng đến đây.</h1>
+                        <h1 class="bx-root-heading ">Hè đến rồi, Sale khủng đây.</h1>
                     </div>
                     <h3 class="bx-root-subtext">
                         Giảm giá đến 50%

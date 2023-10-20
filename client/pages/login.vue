@@ -89,7 +89,7 @@
           });
           setTimeout(()=>{
             this.message= "Email hoặc mật khẩu không đúng"
-          }, 600);
+          }, 1000);
         } catch (err) {
           console.log(err);
         }

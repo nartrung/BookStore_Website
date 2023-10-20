@@ -12,31 +12,45 @@
                             <div class="a-box a-spacing-extra-large">
                                 <div class="a-box-inner">
                                     <h1 class="a-spacing-small">Tạo tài khoản</h1>
-                                    <div class="a-row a-spacing-base">
+                                    <div class="a-row">
                                         <label for="ap_customer_name" class="a-form-label">Họ Tên</label>
                                         <input type="text" id="ap_customer_name"
                                             class="a-input-text form-control auth-autofocus auth-required-field auth-contact-verification-request-info"
                                             placeholder="Họ và tên của bạn" v-model="name" required>
+                                        <span class="a-alert-content text-danger font-weight-bold">
+                                            <span v-if="!validName">*Vui lòng nhập họ tên!</span>
+                                            <span v-else class="invisible">*</span>
+                                        </span>
                                     </div>
-                                    <div class="a-row a-spacing-base">
+                                    <div class="a-row">
                                         <label for="ap_customer_name" class="a-form-label">Email</label>
                                         <input type="email" id="ap_customer_name"
                                             class="a-input-text form-control auth-autofocus auth-required-field auth-contact-verification-request-info"
                                             placeholder="Email của bạn" ref="email" v-model="email" required>
+                                        <span class="a-alert-content text-danger font-weight-bold">
+                                            <span v-if="!validEmail">*Email không hợp lệ!</span>
+                                            <span v-else class="invisible">*</span>
+                                        </span>
                                     </div>
-                                    <div class="a-row a-spacing-base">
+                                    <div class="a-row">
                                         <label for="ap_customer_name" class="a-form-label">Mật khẩu</label>
                                         <input type="password" id="ap_customer_name"
                                             class="a-input-text form-control auth-autofocus auth-required-field auth-contact-verification-request-info"
                                             placeholder="Mật khẩu" ref="password" v-model="password" required @keyup="checkMatchPass">
+                                        <span class="a-alert-content text-danger font-weight-bold">
+                                            <span v-if="!validPass">*Vui lòng nhập mật khẩu!</span>
+                                            <span v-else class="invisible">*</span> 
+                                        </span>
                                     </div>
-                                    <div class="a-row a-spacing-base">
+                                    <div class="a-row">
                                         <label for="ap_customer_name" class="a-form-label">Nhập lại mật khẩu</label>
                                         <input type="password" id="ap_customer_name"
                                             class="a-input-text form-control auth-autofocus auth-required-field auth-contact-verification-request-info"
                                             placeholder="Nhập lai mật khẩu" ref="passwordAgain" required @keyup="checkMatchPass">
-                                        <span v-if="!matchPassword" class="a-alert-content text-danger font-weight-bold">
-                                            *Mật khẩu không trùng khớp!
+                                        <span class="a-alert-content text-danger font-weight-bold">
+                                            <span v-if="!matchPassword">*Mật khẩu không trùng khớp!!</span>
+                                            <span v-else class="invisible">*</span>
+                                            
                                         </span>
                                     </div>
                                     <div class="a-row a-spacing-extra-large mb-4">
@@ -78,6 +92,9 @@ export default {
             name: "",
             email: "",
             password: "",
+            validName: true,
+            validEmail: true,
+            validPass: true,
             matchPassword: true,
         }
     },
@@ -95,10 +112,10 @@ export default {
                     password: this.password
                 }
                 let validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-                let validEmail = (this.$refs.email.value.match(validRegex) != null) && (this.email != "");
-                let validName = (this.name != "");
-                let validPass = (this.$refs.password.value.length >=6);
-                if (this.matchPassword && validName && validPass && validEmail){
+                this.validEmail = await (this.$refs.email.value.match(validRegex) != null) && (this.email != "");
+                this.validName = await (this.name != "");
+                this.validPass = await (this.$refs.password.value.length >=6);
+                if (this.matchPassword && this.validName && this.validPass && this.validEmail){
                     let respone = await this.$axios.$post("/api/auth/signup", data);
                     if (respone.success) {
                         this.$auth.loginWith("local", {
