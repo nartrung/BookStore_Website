@@ -12,11 +12,11 @@
                   <a>Sách mới</a>
                 </div>
               </div>
-              <ul class="s-result-list row border flex-row flex-nowrap" style="overflow-y: hidden">
+              <ul class="s-result-list row border rounded flex-row flex-nowrap" style="overflow-y: hidden">
                 <li class="s-result-item celwidget col-lg-3 col-sm-4 col-12 py-1" v-for="product in products.slice(0, 6)"
                   :key="product._id">
                   <div class="s-item-container">
-                    <div class="border px-3">
+                    <div class="border rounded px-3 shadow ">
                       <div class="text-center">
                         <nuxt-link :to="`/products/${product._id}`">
                           <img :src="product.photo" alt="" class="img-fluid" style="width: 150px;">
@@ -69,11 +69,11 @@
                   <a>{{ category }}</a>
                 </div>
               </div>
-              <ul class="s-result-list row border">
+              <ul class="s-result-list row border rounded">
                 <li class="s-result-item celwidget col-lg-3 col-sm-4 py-1"
                   v-for="product in products.filter(i => i.category.type == category)" :key="product._id">
                   <div class="s-item-container">
-                    <div class="border px-3">
+                    <div class="border rounded px-3 shadow ">
                       <div class="text-center">
                         <nuxt-link :to="`/products/${product._id}`">
                           <img :src="product.photo" alt="" class="img-fluid" style="width: 150px;">

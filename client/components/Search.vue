@@ -16,8 +16,8 @@
         <form  onsubmit="return false;" class="searchbox sbx-book">
             <div role="search" class="sbx-book__wrapper">
                 <input type="search" name="search" placeholder="Tìm sách..." autocomplete="off" 
-                    class="sbx-book__input">
-                <button type="submit" title="Submit your search query." class="sbx-book__submit">
+                    class="sbx-book__input" required="required" v-model="query">
+                <button type="submit" title="Submit your search query." class="sbx-book__submit" @click="onSearch">
                     <svg role="img" aria-label="Search">
                         <use xlink:href="#sbx-icon-search-11"></use>
                     </svg>
@@ -31,3 +31,21 @@
         </form>
     </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      query: ""
+    };
+  },
+  methods: {
+    onSearch() {
+      this.$router.push({
+        path: "/search",
+        query: { title: this.query }
+      });
+    }
+  }
+};
+</script>
