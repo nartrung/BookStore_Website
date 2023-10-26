@@ -88,6 +88,12 @@ class UserController {
           foundUser.email = req.body.email;
         if(req.body.password)
           foundUser.password = req.body.password;
+        if(req.body.city)
+          foundUser.city = req.body.city;
+        if(req.body.address)
+          foundUser.address = req.body.address;
+        if(req.body.phone)
+          foundUser.phone = req.body.phone;
         await foundUser.save();
         res.json({
           success: true,
