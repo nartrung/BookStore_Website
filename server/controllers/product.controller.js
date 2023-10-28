@@ -66,7 +66,7 @@ class ProductController {
             product.title = req.body.title;
           if(req.body.price)
             product.price = req.body.price;
-          if(req.body.stockQuantity)
+          if(req.body.stockQuantity >=0)
             product.stockQuantity = req.body.stockQuantity;
           if(req.body.description)
             product.description = req.body.description;

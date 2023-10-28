@@ -8,7 +8,7 @@ const UserSchema = new Schema({
     password: {type: String, required: true},
     city: {type: String},
     address: {type: String},
-    phone: {type: Number},
+    phone: {type: String},
 });
 
 UserSchema.pre('save', function (next) {
