@@ -21,36 +21,39 @@
                                             <div class="row">
                                                 <div class="col-md-2 col-2">
                                                     <nuxt-link :to="`/products/${product._id}`" class="a-link-normal">
-                                                        <img :src="product.photo" class="img-fluid w-100 " >
+                                                        <img :src="product.photo" class="img-fluid w-100 ">
                                                     </nuxt-link>
                                                 </div>
                                                 <div class="col-sm-8 col-6">
                                                     <div class="a-spacing-mini">
                                                         <a href="#"
-                                                            class="a-link-normal a-size-medium a-text-bold">{{product.title}}</a>
+                                                            class="a-link-normal a-size-medium a-text-bold">{{ product.title }}</a>
                                                         <div class="a-size-base sc-product-creator">viết bởi
-                                                            {{product.author.name}}
+                                                            {{ product.author.name }}
                                                         </div>
                                                     </div>
                                                     <div>
-                                                        <span
-                                                            class="a-size-small a-color-secondary sc-product-binding">Bìa mềm</span>
+                                                        <span class="a-size-small a-color-secondary sc-product-binding">Bìa
+                                                            mềm</span>
                                                     </div>
                                                     <div class="a-spacing-large"></div>
                                                     <div>
                                                         <span
-                                                            class="a-size-small a-color-success sc-product-availability">Còn hàng</span>
+                                                            class="a-size-small a-color-success sc-product-availability">Còn
+                                                            hàng (Tồn: {{ product.stockQuantity }})</span>
                                                     </div>
                                                     <div class="a-spacing-large"></div>
                                                     <div class="sc-action-links">
-                                                        <select @change="onChangeQuantity($event, product)">
-                                                            <option v-for="i in 5" :key="i" :value="i" :selected="checkQty(product.quantity, i)">Số lượng: &nbsp;{{ i }}</option>
-                                                        </select>
+                                                        Số lượng mua:
+                                                        <input type="number" @change="onChangeQuantity($event, product)"
+                                                            style="width: 50px;" min="1" :value="product.quantity">
+
                                                         &nbsp;&nbsp;
                                                         <span>|</span>
                                                         &nbsp;
                                                         <span class="a-size-small">
-                                                            <a href="#" @click="$store.commit('removeProduct', product)">Xóa khỏi giỏ hàng</a>
+                                                            <a href="#" @click="$store.commit('removeProduct', product)">Xóa
+                                                                khỏi giỏ hàng</a>
                                                         </span>
                                                         &nbsp;
                                                         &nbsp;
@@ -59,7 +62,8 @@
                                                 <div class="col-sm-2 col-4 tr sm-txt-r">
                                                     <p class="a-spacing-small">
                                                         <span
-                                                            class="a-size-medium a-color-price sc-price sc-white-space-nowrap sc-product-price sc-price-sign a-text-bold">{{(product.price * product.quantity).toLocaleString()}} VND</span>
+                                                            class="a-size-medium a-color-price sc-price sc-white-space-nowrap sc-product-price sc-price-sign a-text-bold">{{ (product.price
+                                                                * product.quantity).toLocaleString() }} VND</span>
                                                     </p>
                                                 </div>
                                             </div>
@@ -70,7 +74,7 @@
                                     <p class="a-spacing-none a-spacing-top-mini">
                                         <span class="a-size-medium">Tổng số ({{ getCartLength }} sản phẩm)</span>
                                         <span class="a-color-price a-text-bold">
-                                            <span class="a-size-medium a-color-price">{{ getCartTotalPrice}} VND</span>
+                                            <span class="a-size-medium a-color-price">{{ getCartTotalPrice }} VND</span>
                                         </span>
                                     </p>
                                 </div>
@@ -85,7 +89,8 @@
                                                 <span class="a-size-medium">
                                                     <span>Tổng số ({{ getCartLength }} sản phẩm):</span>
                                                     <span class="a-color-price a-text-bold">
-                                                        <span class="a-size-medium a-color-price">{{ getCartTotalPrice}} VND</span>
+                                                        <span class="a-size-medium a-color-price">{{ getCartTotalPrice }}
+                                                            VND</span>
                                                     </span>
                                                 </span>
                                             </p>
@@ -93,7 +98,14 @@
                                         <div>
                                             <span class="a-spacing-small a-button-primary a-button-icon">
                                                 <span class="a-button-inner">
-                                                    <nuxt-link to="/login" class="a-button-text">Thanh toán</nuxt-link>
+                                                    <template v-if="getCartLength > 0">
+                                                        <nuxt-link to="/placeorder" class="a-button-text">Thanh
+                                                            toán</nuxt-link>
+                                                    </template>
+                                                    <template v-else>
+                                                        <nuxt-link to="/" class="a-button-text disable">Xem thêm sản
+                                                            phẩm</nuxt-link>
+                                                    </template>
                                                 </span>
                                             </span>
                                         </div>
@@ -115,18 +127,14 @@ export default {
         ...mapGetters(["getCart", "getCartTotalPrice", "getCartLength"])
     },
     methods: {
-    onChangeQuantity(event, product) {
-      let qty = parseInt(event.target.value);
-      this.$store.commit("changeQty", { product, qty });
-    },
-    checkQty(prodQty, qty) {
-      if (parseInt(prodQty) === parseInt(qty)) {
-        return true;
-      } else {
-        return false;
-      }
+        onChangeQuantity(event, product) {
+            let qty = parseInt(event.target.value);
+            if (qty > product.stockQuantity) {
+                qty = product.stockQuantity;
+            }
+            this.$store.commit("changeQty", { product, qty });
+        },
     }
-  }
 }
 </script>
   

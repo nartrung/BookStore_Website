@@ -15,20 +15,22 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 pl-2">
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-2 d-sm-block d-none pl-2">
                         <div class="nav-global-location">
                             <span class="nav-a nav-a-2">
                                 <div class="nav-sprite" id="nav-packard-glow-loc-icon"></div>
                                 <div id="glow-ingress-block">
                                     <span class="nav-line-1" id="glow-ingress-line1">Giao đến</span>
-                                    <span class="nav-line-2" id="glow-ingress-line2">Cần Thơ</span>
+                                    <template v-if="$auth.$state.loggedIn">
+                                        <span class="nav-line-2 truncated" id="glow-ingress-line2">{{ $auth.$state.user.city}}</span>
+                                    </template>
                                 </div>
                             </span>
                         </div>
                     </div>
-                    <div class="col-xl-6 col-lg-6 col-md-4 col-sm-6 p-0 d-none d-md-block">
+                    <div class="col-xl-4 col-lg-4 col-md-3 p-0 d-none d-md-block">
                         <div class="nav-fill">
-                            <div class="nav-shop">
+                            <div class="nav-shop  d-none d-lg-block">
                                 <nuxt-link to="/" class="nav-a nav-a-2 nav-single-row-link">
                                     <span class="nav-line-2">
                                         Trang chủ
@@ -44,7 +46,8 @@
                                         </span>
                                         <div class="dropdown-menu">
                                             <nuxt-link v-for="category in categories.categories" :key="category._id"
-                                                :to="`/#${removeAccents(category.type)}`" class="dropdown-item" href="#">{{ category.type }}</nuxt-link>
+                                                :to="`/#${removeAccents(category.type)}`" class="dropdown-item" href="#">{{
+                                                    category.type }}</nuxt-link>
 
                                         </div>
                                     </span>
@@ -52,7 +55,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-7 ml-auto col-10 p-0">
+                    <div class="col-xl-5 col-lg-5 col-md-6 col-sm-9 ml-auto col-12 p-0">
                         <div class="nav-tools">
                             <span class="icp-nav-link-border"></span>
                             <template v-if="$auth.$state.loggedIn">
@@ -62,6 +65,12 @@
                                         {{ $auth.$state.user.name }}
                                     </span>
                                 </nuxt-link>
+                                <nuxt-link to="/order" class="nav-a nav-a-2" id="nav-link-accountList" tabindex="0">
+                                    <span class="nav-line-1"></span>
+                                    <span class="nav-line-2">
+                                        Đơn hàng
+                                    </span>
+                                </nuxt-link>
                                 <span class="nav-a nav-a-2 nav-single-row-link">
                                     <span class="nav-line-1"></span>
                                     <span class="nav-line-2" style="text-decoration: underline; cursor: pointer;"
@@ -69,13 +78,13 @@
                                 </span>
                             </template>
                             <template v-else>
-                                <nuxt-link to="/login" class="nav-a nav-a-2" id="nav-link-accountList" tabindex="0">
-                                    <span class="nav-line-1">Xin chào, Khách</span>
-                                    <span class="nav-line-2">
-                                        Đăng nhập
-                                        <span class="nav-icon nav-arrow" style="visibility: visible;"></span>
-                                    </span>
-                                </nuxt-link>
+                                    <nuxt-link to="/login" class="nav-a nav-a-2" id="nav-link-accountList" tabindex="0">
+                                        <span class="nav-line-1">Xin chào, Khách</span>
+                                        <span class="nav-line-2">
+                                            Đăng nhập
+                                            <span class="nav-icon nav-arrow" style="visibility: visible;"></span>
+                                        </span>
+                                    </nuxt-link>
                             </template>
                             <nuxt-link to="/cart" class="nav-a nav-a-2" id="nav-cart">
                                 <span aria-hidden="true" class="nav-line-1"></span>

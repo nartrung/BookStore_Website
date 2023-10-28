@@ -80,6 +80,11 @@ export default {
   },
 
   auth: {
+    redirect: {
+      login: '/login',
+      logout: '/',
+      home: '/'
+    },
     strategies: {
       local: {
         endpoints: {

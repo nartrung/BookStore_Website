@@ -132,12 +132,6 @@
                                 <div class="buyBox">
                                     <div class="a-section">
                                         <div class="clearfix">
-                                            <div class="float-left">
-                                                <form>
-                                                    <input type="radio" id="buying1" name="radio-group checked">
-                                                    <label for="buying1">Mua ngay</label>
-                                                </form>
-                                            </div>
                                             <div class="float-right">
                                                 <span class="a-size-medium a-color-price offer-price a-text-normal">
                                                     {{product.price.toLocaleString()}} VND
@@ -153,11 +147,14 @@
                                     </div>
                                     <div class="a-section a-spacing-small">
                                         <div class="a-section a-spacing-none">
-                                            <span class="a-size-medium a-color-success">Còn hàng</span>
+                                            <template v-if="product.stockQuantity >0">
+                                                <span class="a-size-medium a-color-success">Còn hàng (Tồn: {{product.stockQuantity}})</span>
+                                            </template>
                                         </div>
                                         <div class="a-section a-spacing-mini">Vận chuyển bởi BookStore.com</div>
                                     </div>
                                     <div class="a-section">
+                                        <template v-if="product.stockQuantity>0">
                                         <div class="a-button-stack" @click="addProductToCart(product)">
                                             <span class="a-spacing-small a-button-primary a-button-icon">
                                                 <span class="a-button-inner">
@@ -167,6 +164,14 @@
                                                 </span>
                                             </span>
                                         </div>
+                                        </template>
+                                        <template v-else>
+                                            <span class="a-spacing-small a-button">
+                                                <span class="a-button-inner border">
+                                                    <span class="a-button-text">Hết hàng</span>
+                                                </span>
+                                            </span>
+                                        </template>
                                     </div>
                                     <div class="a-row">
                                         <div class="a-spacing-top-small">

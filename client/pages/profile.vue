@@ -3,6 +3,26 @@
         <Navbar />
         <main>
             <div class="container-fluid c-section">
+                <div class="a-spacing-top-medium"></div>
+            <div class="row">
+                <div class="wayfinding-breadcrumbs-container">
+                    <ul class="a-unordered-list a-horizontal a-size-small">
+                        <li>
+                            <span class="a-list-item">
+                                <a href="#" class="a-link-normal a-color-tertiary">Tài khoản</a>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="a-list-item">></span>
+                        </li>
+                        <li>
+                            <span class="a-list-item">
+                                <a href="#" class="a-link-normal a-color-tertiary">Cập nhật thông tin</a>
+                            </span>
+                        </li>
+                    </ul>
+                    </div>
+            </div>
                 <div class="row">
                     <div class="col-lg-3 col-sm-2"></div>
                     <div class="col-lg-6 col-sm-8">
@@ -114,6 +134,7 @@
 
 <script>
 export default {
+    middleware: 'auth',
     async asyncData({ $axios }) {
         try {
             let response = await $axios.$get("https://provinces.open-api.vn/api/?depth=2");
