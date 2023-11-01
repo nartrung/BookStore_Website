@@ -17,6 +17,39 @@ class OrderController {
       });
     }
   }
+  async getAll(req, res) {
+    try {
+      let orders = await Order.find().deepPopulate("owner products.productID").exec();
+      res.json({
+        success: true,
+        orders: orders
+      })
+    } catch (err) {
+      res.status(500).json({
+        success: false,
+        message: err.message,
+      });
+    }
+  }
+  async updateOrderStatus(req, res) {
+    try {
+      let foundOrder = await Order.findOne({ _id: req.params.id });
+      if (foundOrder) {
+        if(foundOrder)
+        foundOrder.status = "Đã giao hàng";
+        await foundOrder.save();
+        res.json({
+          success: true,
+          message: "Order has been updated",
+        });
+      }
+    } catch (err) {
+      res.status(500).json({
+        success: false,
+        message: err.message,
+      });
+    }
+  }
 }
 
 module.exports = new OrderController();

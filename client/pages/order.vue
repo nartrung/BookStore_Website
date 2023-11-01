@@ -80,80 +80,70 @@
                                     Trạng thái: <span class="text-danger">{{ order.status }}</span>
                                 </h1>
                             </div>
-                            <template v-if="!displayDetail">
-                                <div >
-                                    <div class="a-spacing-base"></div>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-xl-2 col-md-2 col-4">
-                                            <a href="#">
-                                                <img class="img-fluid" style="width: 100px;" :src="order.products[0].productID.photo" />
-                                            </a>
+                            <div>
+                                <div class="a-spacing-base"></div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-xl-2 col-md-2 col-4">
+                                        <a href="#">
+                                            <img class="img-fluid" style="width: 100px;" :src="order.products[0].productID.photo" />
+                                        </a>
+                                    </div>
+                                    <div class="col-xl-10 col-md-10 col-8">
+                                        <div class="a-row">
+                                            <span class="a-size-small">
+                                                <h5>{{ order.products[0].productID.title }}</h5>
+                                                Tác giả: <strong>{{ order.products[0].productID.author.name }}</strong>
+                                            </span>
                                         </div>
-                                        <div class="col-xl-10 col-md-10 col-8">
-                                            <div class="a-row">
-                                                <span class="a-size-small">
-                                                    <h5>{{ order.products[0].productID.title }}</h5>
-                                                    Tác giả: <strong>{{ order.products[0].productID.author.name }}</strong>
-                                                </span>
-                                            </div>
-                                            <div class="a-row">
-                                                <span class="a-size-mini" style="color: #111; font-weight: 400;">{{
-                                                    order.products[0].quantity }} sản phẩm</span>
-                                            </div>
-                                            <div class="a-row">
-                                                <span
-                                                    class="a-size-mini a-color-price">{{ (order.products[0].productID.price * order.products[0].quantity).toLocaleString() }}
-                                                    VND</span>
-                                            </div>
-                                            <br />
+                                        <div class="a-row">
+                                            <span class="a-size-mini" style="color: #111; font-weight: 400;">{{
+                                                order.products[0].quantity }} sản phẩm</span>
                                         </div>
+                                        <div class="a-row">
+                                            <span class="a-size-mini a-color-price">{{ (order.products[0].productID.price *
+                                                order.products[0].quantity).toLocaleString() }}
+                                                VND</span>
+                                        </div>
+                                        <br />
                                     </div>
                                 </div>
-                            </template>
-                            <template v-else>
-                                <div v-for="product in order.products" :key="product._id">
-                                    <div class="a-spacing-base"></div>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-xl-2 col-md-2 col-4">
-                                            <a href="#">
-                                                <img class="img-fluid" style="width: 100px;" :src="product.productID.photo" />
-                                            </a>
+                            </div>
+                            <div v-for="product in order.products.slice(1)" :key="product._id" class="collapse" :id="order._id.replace(/[0-9]/g, '')">
+                                <div class="a-spacing-base"></div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-xl-2 col-md-2 col-4">
+                                        <a href="#">
+                                            <img class="img-fluid" style="width: 100px;" :src="product.productID.photo" />
+                                        </a>
+                                    </div>
+                                    <div class="col-xl-10 col-md-10 col-8">
+                                        <div class="a-row">
+                                            <span class="a-size-small">
+                                                <h5>{{ product.productID.title }}</h5>
+                                                Tác giả: <strong>{{ product.productID.author.name }}</strong>
+                                            </span>
                                         </div>
-                                        <div class="col-xl-10 col-md-10 col-8">
-                                            <div class="a-row">
-                                                <span class="a-size-small">
-                                                    <h5>{{ product.productID.title }}</h5>
-                                                    Tác giả: <strong>{{ product.productID.author.name }}</strong>
-                                                </span>
-                                            </div>
-                                            <div class="a-row">
-                                                <span class="a-size-mini" style="color: #111; font-weight: 400;">{{
-                                                    product.quantity }} sản phẩm</span>
-                                            </div>
-                                            <div class="a-row">
-                                                <span
-                                                    class="a-size-mini a-color-price">{{ (product.productID.price * product.quantity).toLocaleString() }}
-                                                    VND</span>
-                                            </div>
-                                            <br />
+                                        <div class="a-row">
+                                            <span class="a-size-mini" style="color: #111; font-weight: 400;">{{
+                                                product.quantity }} sản phẩm</span>
                                         </div>
+                                        <div class="a-row">
+                                            <span class="a-size-mini a-color-price">{{ (product.productID.price *
+                                                product.quantity).toLocaleString() }}
+                                                VND</span>
+                                        </div>
+                                        <br />
                                     </div>
                                 </div>
-                            </template>
+                            </div>
                             <div class="row justify-content-end">
                                 <div class="a-row pr-3 pb-2">
                                     <template v-if="order.status == `Đã giao hàng`">
                                         <span class="a-button-buy-again">Mua lại</span>
                                     </template>
-                                    <template v-if="!displayDetail">
-                                        <button class="a-button-view-item" @click="onDisplayDetail">Xem chi tiết</button>
-                                    </template>
-                                    <template v-else>
-                                        <button class="a-button-view-item" @click="onDisplayDetail">Ẩn bớt</button>
-                                    </template>
-                                    
+                                    <button class="a-button-view-item" data-toggle="collapse" :data-target="`#${order._id.replace(/[0-9]/g, '')}`">Xem chi tiết/Ẩn bớt</button>
                                 </div>
                             </div>
                         </div>
@@ -183,16 +173,6 @@ export default {
         }
 
     },
-    data() {
-        return {
-            displayDetail: false
-        };
-    },
-    methods: {
-        onDisplayDetail(){
-            this.displayDetail = !this.displayDetail;
-        }
-    }
 }
 
 </script>
