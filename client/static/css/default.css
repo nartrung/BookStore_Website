@@ -534,6 +534,7 @@ header form input{
 }
 .nav-global-location .nav-a-2 .nav-line-1,
 .nav-global-location .nav-a-2 .nav-line-2 {
+    float: left;
     clear: both;
     display: inline-block;
     white-space: nowrap;
@@ -754,6 +755,7 @@ header form input{
     font-family: arial,sans-serif;
 }
 .nav-tools .nav-a-2 .nav-line-2 .nav-icon{
+    float: left;
 	display: inline-block;
     border-style: solid;
     border-width: 4px;

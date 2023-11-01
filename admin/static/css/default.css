@@ -750,16 +750,31 @@ ul{
     text-decoration: none!important;
     vertical-align: middle;
     height: 22px;
-
     background: linear-gradient(to bottom,#f7f8fa,#e7e9ec);
     box-shadow: 0 1px 0 rgba(255,255,255,.6) inset;
-    border-radius: 2px;
-
     font-size: 11px;
     line-height: 22px;
     padding: 0 6px 0 7px;
 
     color: #111;
+}
+.a-button-confirm{
+    border-radius: 3px;
+    border-color: #ADB1B8 #A2A6AC #8D9096;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none!important;
+    vertical-align: middle;
+    background: linear-gradient(to bottom,#62C02D,#096D39);
+    box-shadow: 0 1px 0 rgba(255,255,255,.6) inset;
+    font-size: 11px;
+    line-height: 24px;
+    padding: 0 6px;
+    color: #ffffff;
+    float: right;
 }
 .margin-right-10{
   margin-right: 10px;
@@ -773,7 +788,6 @@ ul{
     border-style: solid;
     border-width: 1px;
     cursor: pointer;
-    padding: 0;
     text-align: center;
     text-decoration: none!important;
     vertical-align: middle;
@@ -784,18 +798,30 @@ ul{
     background-color: transparent;
     font-size: 13px;
     line-height: 30px;
-    padding: 6px 12px;
     margin:  0;
     outline: 0;
     text-align: center;
     white-space: nowrap;
     font-weight: 700;
 }
+.table-scroll {
+    position: relative;
+    height: 385px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: block;
+}
 .a-button-buy-again:hover{
     color: #bf6c00;
 }
 .p13n-sc-truncated{
     width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.td-truncated{
+    width: 20%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
