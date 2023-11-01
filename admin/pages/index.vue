@@ -119,7 +119,7 @@
                 </div>
                 <div class="a-row">
                   <span class="a-size-base a-color-price">
-                    <div class="p13n-sc-price">${{ product.price }}</div>
+                    <div class="p13n-sc-price">{{ product.price.toLocaleString() }} VND</div>
                   </span>
                 </div>
                 <div class="a-row">

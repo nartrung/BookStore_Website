@@ -4,25 +4,25 @@
         <main>
             <div class="container-fluid c-section">
                 <div class="a-spacing-top-medium"></div>
-            <div class="row">
-                <div class="wayfinding-breadcrumbs-container">
-                    <ul class="a-unordered-list a-horizontal a-size-small">
-                        <li>
-                            <span class="a-list-item">
-                                <a href="#" class="a-link-normal a-color-tertiary">Tài khoản</a>
-                            </span>
-                        </li>
-                        <li>
-                            <span class="a-list-item">></span>
-                        </li>
-                        <li>
-                            <span class="a-list-item">
-                                <a href="#" class="a-link-normal a-color-tertiary">Cập nhật thông tin</a>
-                            </span>
-                        </li>
-                    </ul>
+                <div class="row">
+                    <div class="wayfinding-breadcrumbs-container">
+                        <ul class="a-unordered-list a-horizontal a-size-small">
+                            <li>
+                                <span class="a-list-item">
+                                    <a href="#" class="a-link-normal a-color-tertiary">Tài khoản</a>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="a-list-item">></span>
+                            </li>
+                            <li>
+                                <span class="a-list-item">
+                                    <a href="#" class="a-link-normal a-color-tertiary">Cập nhật thông tin</a>
+                                </span>
+                            </li>
+                        </ul>
                     </div>
-            </div>
+                </div>
                 <div class="row">
                     <div class="col-lg-3 col-sm-2"></div>
                     <div class="col-lg-6 col-sm-8">
@@ -32,7 +32,8 @@
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs">
                             <li class="nav-item">
-                                <a class="nav-link active font-weight-bold" data-toggle="tab" href="#profile">Cập nhật thông tin</a>
+                                <a class="nav-link active font-weight-bold" data-toggle="tab" href="#profile">Cập nhật thông
+                                    tin</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link font-weight-bold" data-toggle="tab" href="#password">Đổi mật khẩu</a>
@@ -97,7 +98,6 @@
                                 <span class="a-alert-content text-danger font-weight-bold">
                                     <span v-if="!matchPassword">*Mật khẩu không trùng khớp!!</span>
                                     <span v-else class="invisible">*</span>
-
                                 </span>
                             </div>
                             <div class="row">
@@ -167,22 +167,25 @@ export default {
                 phone: this.phone,
             };
             try {
-                let response = await this.$axios.$put("/api/auth/user", data);
+                let response;
+                if (this.password.length > 0 || this.name != "" || this.email != "" || this.city != "" || this.address != "" || this.phone != "") {
+                    response = await this.$axios.$put("/api/auth/user", data);
+                }
                 if (response.success) {
-                    this.name = "";
-                    this.email = "";
-                    this.password = "";
-                    this.city = "",
+                        this.name = "";
+                        this.email = "";
+                        this.password = "";
+                        this.city = "",
                         this.address = "",
                         this.phone = "",
                         await this.$auth.fetchUser();
+                        let profileUpdateSuccess = this.$refs.profileUpdateSuccess;
+                        profileUpdateSuccess.classList.remove("invisible");
+                        setTimeout(() => {
+                            profileUpdateSuccess.classList.add("invisible");
+                        }, 2000);
                 }
-                let profileUpdateSuccess = this.$refs.profileUpdateSuccess;
-                profileUpdateSuccess.classList.remove("invisible");
-                setTimeout(() => {
-                    profileUpdateSuccess.classList.add("invisible");
-                }, 2000);
-
+                    
             } catch (err) {
                 console.log(err);
             }

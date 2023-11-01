@@ -13,19 +13,24 @@
       </button>
       <div class="collapse navbar-collapse justify-content-around .align-items-center" id="collapsibleNavbar">
         <div class="navbar-nav">
-          <div class="nav-item pl-3 my-2 flex-fill">
+          <div class="nav-item pl-1 pl-lg-3 my-2 flex-fill">
             <nuxt-link to="/"  >
-              <button class="a-button-buy-again " style="min-width: 140px; line-height: normal;"> Quản lý sách</button>
+              <button class="a-button-buy-again px-1"> Quản lý sách</button>
             </nuxt-link>
           </div>
-          <div class="nav-item pl-3 my-2 flex-fill">
+          <div class="nav-item pl-1 pl-lg-3 my-2 flex-fill">
             <nuxt-link to="/category">
-              <button class="a-button-buy-again " style="min-width: 140px; line-height: normal"> Quản lý danh mục</button>
+              <button class="a-button-buy-again px-1"> Quản lý danh mục</button>
             </nuxt-link>
           </div>
-          <div class="nav-item pl-3 my-2 flex-fill">
+          <div class="nav-item pl-1 pl-lg-3 my-2 flex-fill">
             <nuxt-link to="/author" >
-              <button class="a-button-buy-again " style="min-width: 140px; line-height: normal"> Quản lý tác giả</button>
+              <button class="a-button-buy-again px-1"> Quản lý tác giả</button>
+            </nuxt-link>
+          </div>
+          <div class="nav-item pl-1 pl-lg-3 my-2 flex-fill">
+            <nuxt-link to="/order" >
+              <button class="a-button-buy-again px-1"> Quản lý đơn hàng</button>
             </nuxt-link>
           </div>
         </div>

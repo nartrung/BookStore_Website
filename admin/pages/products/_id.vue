@@ -26,7 +26,7 @@
                                             <stong class="text-black-50 a-alert-content">Tựa:</stong> <span> {{ product.title }}</span>
                                         </div>
                                         <div class="a-spacing-top-large">
-                                            <stong class="text-black-50 a-alert-content">Giá:</stong> <span> {{ product.price }}$</span>
+                                            <stong class="text-black-50 a-alert-content">Giá:</stong> <span> {{ product.price.toLocaleString() }}VND</span>
                                         </div>
                                         <div class="a-spacing-top-large">
                                             <stong class="text-black-50 a-alert-content">Số lượng tồn:</stong> <span> {{ product.stockQuantity }}</span>
