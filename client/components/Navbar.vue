@@ -82,7 +82,6 @@
                                         <span class="nav-line-1">Xin chào, Khách</span>
                                         <span class="nav-line-2">
                                             Đăng nhập
-                                            <span class="nav-icon nav-arrow" style="visibility: visible;"></span>
                                         </span>
                                     </nuxt-link>
                             </template>

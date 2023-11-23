@@ -9,7 +9,7 @@
             <div class="mainResults mb-4" id="NewBooks">
               <div class="a-spacing-medium">
                 <div class="bestSeller">
-                  <a>Sách mới</a>
+                  <a >Sách mới</a>
                 </div>
               </div>
               <ul class="s-result-list row border rounded flex-row flex-nowrap" style="overflow-y: hidden">
@@ -24,7 +24,7 @@
                       </div>
                       <div class="">
                         <div class="a-row a-spacing-small">
-                          <nuxt-link :to="`/products/${product._id}`" class="a-link-normal">
+                          <nuxt-link :to="`/products/${product._id}`" class="a-link-normal" :title="product.title">
                             <h2 class="a-size-medium">
                               <div class="truncated">{{ product.title }}</div>
 
@@ -81,7 +81,7 @@
                       </div>
                       <div class="">
                         <div class="a-row a-spacing-small">
-                          <nuxt-link :to="`/products/${product._id}`" class="a-link-normal">
+                          <nuxt-link :to="`/products/${product._id}`" class="a-link-normal" :title="product.title">
                             <h2 class="a-size-medium">
                               <div class="truncated">{{ product.title }}</div>
 

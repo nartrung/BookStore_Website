@@ -46,7 +46,18 @@
                     <div class="orderContent a-spacing-medium" v-for="order in orders" :key="order._id">
 
                         <div class="orderContentHeader">
+                            <div class="a-row">
+                                <span class="a-size-base font-weight-bold a-link-normal">Mã đơn #{{ order._id }}</span>
+                            </div>
                             <div class="row">
+                                <div class="col-xl-3 col-lg-3 col-md-3 text-left">
+                                    <div class="a-row">
+                                        <span class="a-size-mini a-color-secondary">Ngày đặt hàng</span>
+                                        <br />
+                                        <span class="a-size-base a-text-bold a-color-secondary">{{ order.createAt
+                                        }}</span>
+                                    </div>
+                                </div>
                                 <div class="col-xl-3 col-lg-3 col-md-3 text-left">
                                     <div class="a-row">
                                         <span class="a-size-mini a-color-secondary">Ngày giao hàng dự kiến</span>
@@ -55,7 +66,7 @@
                                         }}</span>
                                     </div>
                                 </div>
-                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-3">
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6">
                                     <div class="a-row">
                                         <span class="a-size-mini a-color-secondary">Thanh toán</span>
                                         <br />
@@ -63,14 +74,7 @@
                                             order.totalPrice.toLocaleString() }} VND</span>
                                     </div>
                                 </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-7 text-right">
-                                    <div class="a-row">
-                                        <span class="a-size-mini a-color-secondary">Mã đơn #{{ order._id }}</span>
-                                        <br />
-                                        &nbsp;
-                                        <span class="a-size-base font-weight-bold a-link-normal">Trả hàng</span>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                         <div class="orderContentBodyAlt">
@@ -86,7 +90,8 @@
                                 <div class="row">
                                     <div class="col-xl-2 col-md-2 col-4">
                                         <a href="#">
-                                            <img class="img-fluid" style="width: 100px;" :src="order.products[0].productID.photo" />
+                                            <img class="img-fluid" style="width: 100px;"
+                                                :src="order.products[0].productID.photo" />
                                         </a>
                                     </div>
                                     <div class="col-xl-10 col-md-10 col-8">
@@ -101,15 +106,27 @@
                                                 order.products[0].quantity }} sản phẩm</span>
                                         </div>
                                         <div class="a-row">
-                                            <span class="a-size-mini a-color-price">{{ (order.products[0].productID.price *
+                                            <span class="a-size-mini a-color-price">{{ (order.products[0].price *
                                                 order.products[0].quantity).toLocaleString() }}
                                                 VND</span>
                                         </div>
+                                        <template v-if="order.status==`Đã giao hàng`">
+                                            <div class="a-row a-spacing-top-medium">
+                                                <!-- Link to another Review page -->
+                                                <span class="a-size-mini a-button-base writeReviewButton cm-cr-button-wide">
+                                                    <span class="a-button-inner">
+                                                        <nuxt-link :to="`/reviews/${order.products[0].productID._id}`"
+                                                            class="a-button-text">Viết đánh giá</nuxt-link>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </template>
                                         <br />
                                     </div>
                                 </div>
                             </div>
-                            <div v-for="product in order.products.slice(1)" :key="product._id" class="collapse" :id="order._id.replace(/[0-9]/g, '')">
+                            <div v-for="product in order.products.slice(1)" :key="product._id" class="collapse"
+                                :id="order._id.replace(/[0-9]/g, '')">
                                 <div class="a-spacing-base"></div>
                                 <hr>
                                 <div class="row">
@@ -130,10 +147,21 @@
                                                 product.quantity }} sản phẩm</span>
                                         </div>
                                         <div class="a-row">
-                                            <span class="a-size-mini a-color-price">{{ (product.productID.price *
+                                            <span class="a-size-mini a-color-price">{{ (product.price *
                                                 product.quantity).toLocaleString() }}
                                                 VND</span>
                                         </div>
+                                        <template v-if="order.status==`Đã giao hàng`">
+                                            <div class="a-row a-spacing-top-medium">
+                                                <!-- Link to another Review page -->
+                                                <span class="a-button-base writeReviewButton cm-cr-button-wide">
+                                                    <span class="a-button-inner">
+                                                        <nuxt-link :to="`/reviews/${product.productID._id}`"
+                                                            class="a-button-text">Viết đánh giá</nuxt-link>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </template>
                                         <br />
                                     </div>
                                 </div>
@@ -143,7 +171,8 @@
                                     <template v-if="order.status == `Đã giao hàng`">
                                         <span class="a-button-buy-again">Mua lại</span>
                                     </template>
-                                    <button class="a-button-view-item" data-toggle="collapse" :data-target="`#${order._id.replace(/[0-9]/g, '')}`">Xem chi tiết/Ẩn bớt</button>
+                                    <button class="a-button-view-item" data-toggle="collapse"
+                                        :data-target="`#${order._id.replace(/[0-9]/g, '')}`">Xem chi tiết/Ẩn bớt</button>
                                 </div>
                             </div>
                         </div>
@@ -164,6 +193,7 @@ export default {
     async asyncData({ $axios }) {
         try {
             let response = await $axios.$get("/api/orders");
+            response.products = response.products.reverse();
             return {
                 orders: response.products
             }

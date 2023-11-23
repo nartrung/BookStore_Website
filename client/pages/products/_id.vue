@@ -53,17 +53,13 @@
                                 <hr>
                                 <div class="mediaMatrix">
                                     <div class="formats">
-                                        <span class="link-expander">
-                                            >
-                                            <span class="tmmShowPrompt">Xem tất cả phiên bản</span>
-                                        </span>
                                         <ul>
                                             <li class="swatchElement" style="width: 117px;">
                                                 <span class="a-list-item">
                                                     <span class="a-button-toggle">
                                                         <span class="a-button-inner">
                                                             <span class="a-button-text">
-                                                                <span>Kindle</span>
+                                                                <span>BookStore</span>
                                                                 <br>
                                                                 <span class="a-color-secondary">-</span>
                                                             </span>
@@ -75,7 +71,7 @@
                                                         <span class="kcpAppBox">
                                                             <span class="a-declarative">
                                                                 Đọc với
-                                                                <span class="a-text-bold">Ứng dụng Bookworm</span>
+                                                                <span class="a-text-bold">Ứng dụng BookStore</span>
                                                             </span>
                                                         </span>
                                                     </span>
@@ -132,9 +128,9 @@
                                 <div class="buyBox">
                                     <div class="a-section">
                                         <div class="clearfix">
-                                            <div class="float-right">
+                                            <div class="float-left">
                                                 <span class="a-size-medium a-color-price offer-price a-text-normal">
-                                                    {{product.price.toLocaleString()}} VND
+                                                    GIÁ: {{product.price.toLocaleString()}} VND
                                                 </span>
                                             </div>
                                         </div>

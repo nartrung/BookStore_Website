@@ -52,8 +52,8 @@
                                     <!-- Email -->
                                     <div class="a-spacing-top-medium">
                                         <label>Email</label>
-                                        <input class="a-input-text w-100" v-model="email"
-                                            :placeholder="$auth.$state.user.email" />
+                                        <input class="a-input-text-disabled w-100" v-model="email"
+                                            disabled :placeholder="$auth.$state.user.email" />
                                     </div>
                                     <div class="a-spacing-top-medium">
                                         <label>Thành phố</label>
@@ -169,12 +169,13 @@ export default {
             try {
                 let response;
                 if (this.password.length > 0 || this.name != "" || this.email != "" || this.city != "" || this.address != "" || this.phone != "") {
-                    response = await this.$axios.$put("/api/auth/user", data);
+                    if(this.matchPassword){
+                        response = await this.$axios.$put("/api/auth/user", data);
+                    }
                 }
                 if (response.success) {
                         this.name = "";
                         this.email = "";
-                        this.password = "";
                         this.city = "",
                         this.address = "",
                         this.phone = "",
@@ -184,6 +185,10 @@ export default {
                         setTimeout(() => {
                             profileUpdateSuccess.classList.add("invisible");
                         }, 2000);
+                        if(this.password.length > 0){
+                            alert("Mật khẩu đã được thay đổi, vui lòng đăng nhập lại!");
+                            this.$auth.logout();
+                        }
                 }
                     
             } catch (err) {

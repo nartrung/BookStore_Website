@@ -87,7 +87,7 @@
                                         <div class="a-spacing-large">
                                             <p class="a-spacing-none a-spacing-top-none">
                                                 <span class="a-size-medium">
-                                                    <span>Tổng số ({{ getCartLength }} sản phẩm):</span>
+                                                    <span>Tạm tính:</span>
                                                     <span class="a-color-price a-text-bold">
                                                         <span class="a-size-medium a-color-price">{{ getCartTotalPrice }}
                                                             VND</span>

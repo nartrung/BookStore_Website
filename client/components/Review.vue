@@ -13,18 +13,7 @@
             <div class="float-left">
             </div>
           </div>
-          <template v-if="$auth.$state.loggedIn">
-            <h3 class="a-spacing-micro">Thêm đánh giá cho sách này</h3>
-            <div class="a-row a-spacing-large">Chia sẻ cảm nhận của bạn với những người khác</div>
-            <div class="a-row">
-              <!-- Link to another Review page -->
-              <span class="a-button-base writeReviewButton cm-cr-button-wide">
-                <span class="a-button-inner">
-                  <nuxt-link :to="`/reviews/${product._id}`" class="a-button-text">Viết đánh giá</nuxt-link>
-                </span>
-              </span>
-            </div>
-          </template>
+          
           <div class="clearfix">
             <div class="float-left">
               <hr class="mt-4 a-spacing-large" />
