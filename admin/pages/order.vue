@@ -109,7 +109,7 @@
                                                 <td>
                                                     <strong>Địa chỉ: </strong>
                                                     <span v-if="orderIndexDetail != null">
-                                                        {{ orders[orderIndexDetail].city }}
+                                                        {{ orders[orderIndexDetail].address+' ,'+ orders[orderIndexDetail].city }}
                                                     </span>
                                                 </td>
                                             </tr>
@@ -136,6 +136,7 @@
 
 <script>
 export default {
+    middleware: 'auth',
     async asyncData({ $axios }) {
         try {
             let respone = await $axios.$get('http://localhost:3000/api/allOrders');
@@ -157,11 +158,13 @@ export default {
         },
         async updateOrderStatus(id) {
             try {
-                let response = await this.$axios.$put(`http://localhost:3000/api/updateOrder/${id}`);
-                if(response.success){
-                    alert("Xác nhận thành công! Đã giao hàng");
+                if(confirm('Xác nhận đã giao đơn hàng này?')){
+                    let response = await this.$axios.$put(`http://localhost:3000/api/updateOrder/${id}`);
+                    if(response.success){
+                        alert("Xác nhận thành công! Đã giao hàng");
+                    }
+                    this.$router.go();
                 }
-                this.$router.go();
             } catch (err) {
                 console.log(err);
             }

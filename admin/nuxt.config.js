@@ -60,6 +60,7 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    '@nuxtjs/auth'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -80,5 +81,27 @@ export default {
   },
   server:{
     port: 3001,
+  },
+  auth: {
+    redirect: {
+      login: '/login',
+      logout: '/login',
+      home: '/',
+    },
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/admin/auth/login',
+            propertyName: "token",
+          },
+          logout: true,
+          user:{
+            url: '/admin/auth/admin',
+            propertyName: "user"
+          }
+        },
+      },
+    },
   }
 }
