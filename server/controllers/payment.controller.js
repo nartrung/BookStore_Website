@@ -58,6 +58,13 @@ class PaymentController {
       order.phone = req.decoded.phone;
       order.estimatedDelivery = req.body.estimatedDelivery;
       order.totalPrice = parseInt(req.body.totalPrice);
+
+      const date = new Date();
+      let day = date.getDate();
+      let month = date.getMonth()+1;
+      let year = date.getFullYear();
+      let currentDate = `${day}-${month}-${year}`;
+      order.createAt = currentDate;
       await order.save();
       res.json({
         success: true,

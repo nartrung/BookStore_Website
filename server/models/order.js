@@ -16,7 +16,8 @@ const OrderSchema = new Schema({
   ],
   estimatedDelivery: String,
   totalPrice: {type: Number},
-  status:{type: String, default:"Đang giao hàng"}
+  status:{type: String, default:"Đang giao hàng"},
+  createAt: {type: String}
 });
 
 OrderSchema.plugin(deepPopulate);
