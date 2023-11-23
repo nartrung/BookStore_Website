@@ -97,6 +97,7 @@
 
 <script>
 export default {
+    middleware: 'auth',
     async asyncData({ $axios }) {
         try {
             let respone = await $axios.$get('http://localhost:3000/api/authors');

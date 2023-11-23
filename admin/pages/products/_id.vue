@@ -96,6 +96,7 @@
 
 <script>
 export default {
+    middleware: 'auth',
     async asyncData({ $axios, params }) {
         try {
             let categories = $axios.$get("http://localhost:3000/api/categories");
