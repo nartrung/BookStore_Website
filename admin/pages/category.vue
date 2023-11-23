@@ -44,7 +44,7 @@
                                             <td class="catgoriesName" ref="catgoriesName">{{ category.type }}</td>
                                             <td class="w-25 text-center">
                                                 <a class="a-button-history mx-auto"
-                                                    @click="onDeleteCategory(category._id, index)">Xóa</a>
+                                                    @click="onDeleteCategory(category._id,category.type, index)">Xóa</a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -61,6 +61,7 @@
 
 <script>
 export default {
+    middleware: 'auth',
     async asyncData({ $axios }) {
         try {
             let respone = await $axios.$get('http://localhost:3000/api/categories');
@@ -114,12 +115,14 @@ export default {
                 }
             }
         },
-        async onDeleteCategory(id, index) {
+        async onDeleteCategory(id,type, index) {
             try {
-                let respone = await this.$axios.$delete(`/categories/${id}`);
-                this.$router.go();
-                if (respone.status) {
-                    this.products.splice(index, 1)
+                if(confirm('Bạn có chắc muốn xóa danh mục "' + type + '" ?')){
+                    let respone = await this.$axios.$delete(`http://localhost:3000/api/categories/${id}`);
+                    this.$router.go();
+                    if (respone.status) {
+                        this.products.splice(index, 1)
+                    }
                 }
             } catch (err) {
                 console.log(err);

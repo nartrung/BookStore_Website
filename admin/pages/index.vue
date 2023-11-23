@@ -97,7 +97,7 @@
         <div class="a-spacing-large"></div>
         <div class="container-fluid browsing-history">
           <div class="row">
-            <div v-for="(product, index) in products" :key="product._id" class="col-xl-2 col-lg-3 col-sm-4 col-6 br bb">
+            <div v-for="(product, index) in products" :key="product._id" class="col-lg-2 col-sm-3 col-6 br bb">
               <div class="history-box">
                 <a href="#" class="a-link-normal">
                   <img :src="product.photo" class="img-fluid" alt="">
@@ -125,7 +125,7 @@
                 <div class="a-row">
                   <nuxt-link :to="`/products/${product._id}`" class="a-button-history margin-right-10">Cập nhật thông
                     tin</nuxt-link>
-                  <a href="#" class="a-button-history margin-right-10"
+                  <a href="#" class="a-button-history"
                     @click="onDeleteProduct(product._id, index, product.title)">Xóa</a>
                 </div>
               </div>
@@ -139,6 +139,7 @@
 
 <script>
 export default {
+  middleware: 'auth',
   async asyncData({ $axios }) {
     try {
       let products = await $axios.$get("http://localhost:3000/api/products");
@@ -178,6 +179,7 @@ export default {
     }
   },
   methods: {
+    
     async onDeleteProduct(id, index, name) {
       if (confirm("Bạn có chắc muốn xóa sách \"" + name + "\" ?")) {
         try {
