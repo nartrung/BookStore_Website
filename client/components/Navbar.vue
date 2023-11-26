@@ -16,17 +16,19 @@
                 </div>
                 <div class="row">
                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-2 d-sm-block d-none pl-2">
+                        <template v-if="$auth.$state.loggedIn">
                         <div class="nav-global-location">
                             <span class="nav-a nav-a-2">
                                 <div class="nav-sprite" id="nav-packard-glow-loc-icon"></div>
                                 <div id="glow-ingress-block">
                                     <span class="nav-line-1" id="glow-ingress-line1">Giao đến</span>
-                                    <template v-if="$auth.$state.loggedIn">
+                                    
                                         <span class="nav-line-2 truncated" id="glow-ingress-line2">{{ $auth.$state.user.city}}</span>
-                                    </template>
+                                    
                                 </div>
                             </span>
                         </div>
+                        </template>
                     </div>
                     <div class="col-xl-4 col-lg-4 col-md-3 p-0 d-none d-md-block">
                         <div class="nav-fill">

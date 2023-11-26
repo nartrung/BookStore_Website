@@ -63,7 +63,7 @@
                                             <b>
                                                 Với việc đăng ký tài khoản, đồng nghĩa với bạn đã đồng ý với
                                                 <span class="acrCustomerReviewLink">Điều khoản sử dụng</span> và
-                                                <span class="acrCustomerReviewLink">Chính sách riêng tư</span> của BookWorm
+                                                <span class="acrCustomerReviewLink">Chính sách riêng tư</span> của BookStore
                                             </b>
                                         </div>
                                     </div>
