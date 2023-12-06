@@ -1,6 +1,8 @@
 # BookStore Website 📚
 ## Purpose 🎯
 This is a personal website project that I wrote to investigate and study programming languages as well as the operation and basic functions of a website.
+## Technology
+Node.js / Express.js / Vue.js / Nuxt.js / MongoDB / MVC / Cloudinary
 ## Feature ⚙
 - For Administrators:
   - Manage books: View books, add books, edit book information, delete books.
